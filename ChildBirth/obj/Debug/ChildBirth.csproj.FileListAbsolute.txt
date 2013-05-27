@@ -1,0 +1,12 @@
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\ChildBirth.exe.config
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\obj\Debug\ChildBirth.csprojResolveAssemblyReference.cache
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\ChildBirth.exe
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\ChildBirth.pdb
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\OpenTK.dll
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\OpenTK.GLControl.dll
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\OpenTK.pdb
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\OpenTK.xml
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\OpenTK.GLControl.pdb
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\OpenTK.GLControl.xml
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\obj\Debug\ChildBirth.exe
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\obj\Debug\ChildBirth.pdb
