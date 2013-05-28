@@ -14,8 +14,7 @@ namespace ChildBirth.Simulation
         /// <summary>
         /// List of all the object in this simulation
         /// </summary>
-        protected
-        List<SimObject> objects = new List<SimObject>();
+        protected List<SimObject> objects = new List<SimObject>();
 
         /// <summary>
         /// Virtual method to be overriden in the subclasses
@@ -25,12 +24,26 @@ namespace ChildBirth.Simulation
             
         }
 
-        protected void Update(double time)
+        /// <summary>
+        /// An update method to update all the objects in the simulation
+        /// </summary>
+        /// <param name="time"></param>
+        public virtual void Update(double time)
         { 
             foreach(SimObject simObject in objects)
             {
                 simObject.Update(time);
             }
+        }
+
+        public SimObject GetObject(String name)
+        {
+            foreach (SimObject simObject in objects)
+            {
+                if (simObject.Name == name)
+                    return simObject;
+            }
+            return null;
         }
     }
 }

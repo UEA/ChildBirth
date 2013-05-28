@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Loaders\ContentObject.cs" />
+    <Compile Include="Loaders\Loader.cs" />
     <Compile Include="Loaders\Materials\MaterialLoader.cs" />
     <Compile Include="Loaders\Shaders\ShaderLoader.cs" />
     <Compile Include="Loaders\Textures\TextureLoader.cs" />

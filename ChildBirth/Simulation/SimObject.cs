@@ -40,8 +40,10 @@ namespace ChildBirth.Simulation
         /// </summary>
         private bool transformNeedsUpdate = true;
 
-
-
+        /// <summary>
+        /// Private field to store the name of the object
+        /// </summary>
+        private String name;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         /// Public access properties and methods
@@ -121,6 +123,12 @@ namespace ChildBirth.Simulation
                 Matrix4.Scale(scale) *
                 Matrix4.CreateTranslation(position);
             transformNeedsUpdate = false;
+        }
+
+        public String Name
+        {
+            get { return this.name; }
+            set { this.name = value; }
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////

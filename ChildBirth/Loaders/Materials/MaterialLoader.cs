@@ -27,20 +27,7 @@ namespace ChildBirth.Loaders.Materials
         } 
         #endregion
 
-        private List<Material> library = new List<Material>();
-
-        public Material GetMaterial(String name)
-        {
-            foreach (Material material in library)
-            {
-                if (material.Name == name)
-                    return material;
-            }
-
-            return LoadMaterial(name);
-        }
-
-        private Material LoadMaterial(String name)
+        protected override Material Load(String name)
         {
             XmlReader reader = XmlReader.Create(ContentDir + name);
 
