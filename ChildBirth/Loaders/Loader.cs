@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace ChildBirth.Loaders
 {
@@ -24,18 +24,18 @@ namespace ChildBirth.Loaders
             return Load(name);
         }
 
-        protected virtual ContentObject Load(String name);
+        protected abstract ContentObject Load(String name);
 
-        protected virtual String FileExtension
-        {
-            get { return ""; }
-        }
+        
+        protected virtual String FileExtension { get { return ""; } }
+        protected virtual String ContentSubDirectory { get { return ""; } }
 
-        protected virtual String ContentSubDirectory
-        {
-            get;
-        }
-
+        /// <summary>
+        /// Combines the content directory, the subdirectory and the filename with the extension
+        /// to form a full URI to access the file of the content object
+        /// </summary>
+        /// <param name="name">The name of the object</param>
+        /// <returns>The full URI as a string</returns>
         protected String ConstructURIAndRefineName(ref String name)
         {
             if(name.Contains(FileExtension))

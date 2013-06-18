@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 using OpenTK;
+using ChildBirth.Rendering;
 
 namespace ChildBirth.Simulation
 {
     // This is a base class for all the objects participating in the simulation
-    public class SimObject
+    class SimObject
     {
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         /// Private object fields

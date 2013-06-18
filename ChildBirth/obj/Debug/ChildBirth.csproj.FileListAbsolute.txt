@@ -10,3 +10,7 @@ C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\OpenTK.GLControl.pdb
 C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\OpenTK.GLControl.xml
 C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\obj\Debug\ChildBirth.exe
 C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\obj\Debug\ChildBirth.pdb
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\Content\Models\Baby.obj
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\Content\Materials\Phong.mat
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\Content\Shaders\Phong.shad
+C:\Zelim\.NET - Mono\ChildBirth\ChildBirth\bin\Debug\Content\Shaders\PhongEnvmapShadow.shad

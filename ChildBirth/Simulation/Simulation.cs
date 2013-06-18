@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+
+using ChildBirth.Cameras;
 
 namespace ChildBirth.Simulation
 {
@@ -36,6 +38,24 @@ namespace ChildBirth.Simulation
             }
         }
 
+        /// <summary>
+        /// Public property to retreive the main camera used in the simulaiton
+        /// </summary>
+        public Camera MainCamera
+        {
+            get {
+                    Camera camera = (Camera) GetObject("MainCamera");
+                    if (camera == null)
+                    {
+                        camera = new CameraOrbit();
+                        camera.Name = "MainCamera";
+                        objects.Add(camera);    
+                    }
+                    
+                    return camera;
+                }
+        }
+
         public SimObject GetObject(String name)
         {
             foreach (SimObject simObject in objects)
@@ -44,6 +64,17 @@ namespace ChildBirth.Simulation
                     return simObject;
             }
             return null;
+        }
+
+        internal void Load()
+        {
+            Rendering.Model model = new Rendering.Model("Baby", "Phong");
+            objects.Add(model);
+        }
+
+        internal void Render()
+        {
+            objects.ForEach( obj => { obj.Render(); } );
         }
     }
 }

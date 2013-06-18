@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Xml;
 
 using ChildBirth.Rendering;
@@ -11,7 +11,7 @@ using ChildBirth.Loaders.Shaders;
 
 namespace ChildBirth.Loaders.Materials
 {
-    class MaterialLoader
+    class MaterialLoader : Loader
     {
         #region Singleton declaration
         /// <summary>
@@ -24,60 +24,70 @@ namespace ChildBirth.Loaders.Materials
             if (instance == null)
                 instance = new MaterialLoader();
             return instance;
-        } 
+        }
+
+        private MaterialLoader()
+        {}
+
         #endregion
 
-        protected override Material Load(String name)
+        public Material GetMaterial(String name)
         {
-            XmlReader reader = XmlReader.Create(ContentDir + name);
+            return (Material) base.GetObject(name);
+        }
 
+        protected override ContentObject Load(String name)
+        {
+            String uri = ConstructURIAndRefineName(ref name);
+
+            XmlReader reader = XmlReader.Create(uri);
+            
             Material material = new Material();
             material.Name = name;
 
-            String uri = name;
-
-            if (!uri.EndsWith(".mat"))
+            while (reader.Read())
             {
-                uri += ".mat";
-            }
-
-            // Parsing shader data
-            if (reader.Name == "material" && reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
+                /// Parsing shader data
+                if (reader.Name == "material" && reader.HasAttributes)
                 {
-                    if (reader.Name == "shader")
-                        material.shader = ShaderLoader.GetShader(reader.Value);
+                    while (reader.MoveToNextAttribute())
+                    {
+                        if (reader.Name == "shader")
+                            material.Shader = ShaderLoader.GetInstance().GetShader(reader.Value);
 
+                    }
+                    reader.MoveToElement();
                 }
-                reader.MoveToElement();
-            }
 
-            ///// Parsing textures
-            if (reader.Name == "textures" && reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
+                /// Parsing textures of the material
+                if (reader.Name == "textures" && reader.HasAttributes)
                 {
-                    Texture tmpTex = TextureLoader.GetTexture(reader.Value);
+                    while (reader.MoveToNextAttribute())
+                    {
+                        Texture tmpTex = TextureLoader.GetInstance().GetTexture(reader.Value);
 
-                    if (reader.Name == "base")
-                        material.SetTexture(Material.TexType.baseTexture, tmpTex);
+                        if (reader.Name == "base")
+                            material.SetTexture(Texture.TextureType.base1, tmpTex);
 
-                    if (reader.Name == "base2")
-                        material.SetTexture(Material.TexType.base2Texture, tmpTex);
+                        if (reader.Name == "base2")
+                            material.SetTexture(Texture.TextureType.base2, tmpTex);
 
-                    if (reader.Name == "envmap")
-                        material.SetTexture(Material.TexType.envMapTexture, tmpTex);
+                        if (reader.Name == "envmap")
+                            material.SetTexture(Texture.TextureType.envMap, tmpTex);
 
-                    if (reader.Name == "lightMap")
-                        material.SetTexture(Material.TexType.lightTexture, tmpTex);
+                        if (reader.Name == "lightMap")
+                            material.SetTexture(Texture.TextureType.light, tmpTex);
+                    }
+                    reader.MoveToElement();
                 }
-                reader.MoveToElement();
             }
 
-            Shader shader = Shaders.ShaderLoader.GetInstance().GetShader(shaderName);
+            library.Add(material);
 
-            return new Material();
+            return material;
         }
+
+        protected override string ContentSubDirectory { get { return "Materials/"; } }
+        protected override string FileExtension { get { return ".mat"; } }
     }
 }

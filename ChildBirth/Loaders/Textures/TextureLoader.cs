@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 using System.Drawing;
 using ChildBirth.Rendering;
@@ -61,20 +61,7 @@ namespace ChildBirth.Loaders.Textures
             return (ContentObject) texture;
         }
 
-        protected override string ContentSubDirectory
-        {
-            get
-            {
-                return "Textures/";
-            }
-        }
-
-        protected override string FileExtension
-        {
-            get
-            {
-                return ".png";
-            }
-        }
+        protected override string ContentSubDirectory { get { return "Textures/"; } }
+        protected override string FileExtension { get { return ".png"; } }
     }
 }

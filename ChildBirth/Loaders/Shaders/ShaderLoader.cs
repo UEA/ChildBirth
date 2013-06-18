@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.IO;
+using System.Xml;
 
 using ChildBirth.Rendering;
 
@@ -29,11 +30,6 @@ namespace ChildBirth.Loaders.Shaders
         #endregion
 
         /// <summary>
-        /// Private list storage for all the shaders that have been loaded
-        /// </summary>
-        private List<Shader> library = new List<Shader>();
-
-        /// <summary>
         /// The shader
         /// </summary>
         /// <param name="name">The name of the shader to be returned</param>
@@ -45,33 +41,43 @@ namespace ChildBirth.Loaders.Shaders
 
         protected override ContentObject Load(String name)
         {
-            // Construct the full relative URI of the file to be loaded
-            String uri = ConstructURIAndRefineName(ref name);
+            try
+            {
+                // Construct the full relative URI of the file to be loaded and crop the file extension
+                String uri = ConstructURIAndRefineName(ref name);
 
-            Shader shader = new Shader();
+                Shader shader = new Shader();
 
-            return (ContentObject) shader;
+                XmlTextReader reader = new XmlTextReader(uri);
+                while (reader.Read())
+                {
+                    if (reader.Name == "vertex")
+                        shader.VShader = reader.ReadString();
+
+                    else if (reader.Name == "fragment")
+                        shader.FShader = reader.ReadString();
+                }
+
+                shader.Initialize();
+
+                library.Add(shader);
+                return (ContentObject)shader;
+            }
+            catch (Exception exception)
+            {
+                Console.Error.WriteLine(exception.Message);
+                Console.Error.WriteLine("Failed to load shader with name: " + name);
+                Console.Error.WriteLine("Using the default shader");
+                
+                return (ContentObject) new Rendering.Defaults.DefaultShader();
+            }
         }
 
         /// <summary>
         /// String to indicate the directory where the shader files are stored
         /// It is used along with the global content directory from Settings class
         /// </summary>
-
-        protected override string ContentSubDirectory
-        {
-            get
-            {
-                return "Shaders/";
-            }
-        }
-
-        protected override string FileExtension
-        {
-            get
-            {
-                return ".shad";
-            }
-        }
+        protected override string ContentSubDirectory { get { return "Shaders/"; } }
+        protected override string FileExtension { get { return ".shad"; } }
     }
 }
